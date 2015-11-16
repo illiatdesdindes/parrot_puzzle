@@ -1,7 +1,5 @@
 defmodule Crypt do
-  @secret   'GIMWRJXBDXPRTLCEZ:CFSBIDEQCANCFGSEEFAQOCSSUKRPQAQ/OKSOET'
   @alphabet 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  @key      0x4245424F50
 
   def secret do
     @secret
