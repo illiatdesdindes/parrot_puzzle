@@ -3,9 +3,12 @@ defmodule Parrot do
   @key      0x4245424F50
 
 
-  def decode_hexa_key do
-    String.to_char_list <<@key::40>>
+  def decrypt_url do
+    Crypt.decrypt(@secret, decrypt_hexa_key)
   end
 
+  def decrypt_hexa_key do
+    String.to_char_list <<@key::40>>
+  end
 
 end
