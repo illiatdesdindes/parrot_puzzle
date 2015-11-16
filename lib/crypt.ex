@@ -1,13 +1,5 @@
 defmodule Crypt do
-  @alphabet 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
-  def secret do
-    @secret
-  end
-
-  def key do
-    @key
-  end
+  @alphabet 'ABCDEFGHIJKLMNOPQRSTUVWXYZ. :/'
 
   def encrypt(phrase, key) do
     repeated_key = repeat_key(key, length(phrase))
@@ -29,18 +21,22 @@ defmodule Crypt do
   end
 
   defp encode([], _), do: []
-  defp encode([hp|tp] = _phrase, [hk|tk] = _key) do
-    encoded_letter = rem((hp - 65) + (hk - 65), 26) + 65
+  defp encode([hp|tp] = _phrase, [hk|tk] = _key) when hp in @alphabet do
+    encoded_letter = rem(to_i(hp) + to_i(hk), length(@alphabet)) |> to_char
     [encoded_letter | encode(tp, tk)]
   end
 
   defp decode([], _), do: []
-  defp decode([hs|ts] = _secret, [hk|tk] = _key) do
-    decoded_letter = rem((hs - 65) - (hk - 65) + 26, 26) + 65
+  defp decode([hs|ts] = _secret, [hk|tk] = _key) when hs in @alphabet do
+    decoded_letter = rem(to_i(hs) - to_i(hk) + length(@alphabet), length(@alphabet)) |> to_char
     [decoded_letter | decode(ts, tk)]
   end
 
-  def to_i(char_number) do
+  defp to_i(char_number) do
     Enum.find_index(@alphabet, &(&1 == char_number))
+  end
+
+  defp to_char(integer) do
+    Enum.at(@alphabet, integer)
   end
 end

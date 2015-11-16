@@ -2,12 +2,22 @@ defmodule CryptTest do
   use ExUnit.Case
   doctest Crypt
 
-
-  test "We can encrypt a text simple texte" do
-    assert Crypt.encrypt('JADOREECOUTERLARADIOTOUTELAJOURNEE', 'MUSIQUE') == 'VUVWHYIOIMBULPMLSLYIXAOLMBUNAOJVUY'
+  test "identity of simple string" do
+    string = 'SIMPLESTRING'
+    key = 'KEY'
+    assert string |> Crypt.encrypt(key) |> Crypt.decrypt(key) == string
   end
 
-  test "We can decrypt a a secret" do
-    assert Crypt.decrypt('VUVWHYIOIMBULPMLSLYIXAOLMBUNAOJVUY', 'MUSIQUE') == 'JADOREECOUTERLARADIOTOUTELAJOURNEE'
+  test "identity of simple string with additonal characters" do
+    string = 'STRING: WITH ADDITIONNAL. /CHARS/'
+    key = 'KEY'
+    assert string |> Crypt.encrypt(key) |> Crypt.decrypt(key) == string
   end
+
+  test "identity of simple string with additonal characters reverse" do
+    string = 'STRING: WITH ADDITIONNAL. /CHARS/'
+    key = 'KEY'
+    assert string |> Crypt.decrypt(key) |> Crypt.encrypt(key) == string
+  end
+
 end
